@@ -19,12 +19,12 @@ public class TelaFornecedor extends javax.swing.JFrame {
     AcessoBD acesso = new AcessoBD();
     // Criação de um RecordSet para receber os registros das consultas
     ResultSet rs;
-
+   
     public TelaFornecedor() {
-        
         initComponents();
-        
     }
+    
+  
 
   /**
    * O conteúdo a seguir foi gerado pelo NetBeans na criação da tela e não pode
@@ -41,7 +41,7 @@ public class TelaFornecedor extends javax.swing.JFrame {
         btIncluir = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        btListar = new javax.swing.JButton();
+        btCadastrarProduto = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -96,10 +96,10 @@ public class TelaFornecedor extends javax.swing.JFrame {
             }
         });
 
-        btListar.setText("Gerar Listagem");
-        btListar.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrarProduto.setText("Produto");
+        btCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btListarActionPerformed(evt);
+                btCadastrarProdutoActionPerformed(evt);
             }
         });
 
@@ -127,10 +127,10 @@ public class TelaFornecedor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btListar)
+                        .addComponent(btCadastrarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 18, Short.MAX_VALUE)))
+                        .addGap(0, 52, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(125, 125, 125)
@@ -145,7 +145,7 @@ public class TelaFornecedor extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btListar)
+                    .addComponent(btCadastrarProduto)
                     .addComponent(btExcluir)
                     .addComponent(btAlterar)
                     .addComponent(btIncluir)
@@ -211,16 +211,31 @@ public class TelaFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
     // Método do botão de listar registros
-    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
+    private void btCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarProdutoActionPerformed
         // Cria um objeto ALunoDAO para acesso aos métodos de acesso
         // ao banco do Objeto Aluno
-        FornecedorDAO ad = new FornecedorDAO();
-        // Verifica se a listagem foi gerada
-        if (!ad.ListarFornecedor()) {
-            String mensagem = "Listagem Não Gerada!";
+            if (lista.getSelectedIndex() != 0) {
+            String id = lista.getSelectedValue().substring(0, 3);
+            if (Integer.parseInt(id.trim()) <= 0) {
+                String mensagem = "Opção inválida!";
+                JOptionPane.showMessageDialog(null, mensagem);
+            }
+            // Executa a janela de preenchimento de dados em modo exclusão
+            // 1o parâmetro = 3 - Exclusão e 2o parâmetro = id do registro 
+            // o trim() é necessário para eliminar os espaços na conversão
+           
+            
+            TelaProduto tp = new TelaProduto(Integer.parseInt(id.trim()));
+            tp.setVisible(true);
+            
+            // Configura os comonentes que serão liberados ou restringidos
+        } // Verificação de segurança
+        else {
+            String mensagem = "Opção inválida!";
             JOptionPane.showMessageDialog(null, mensagem);
-        }
-    }//GEN-LAST:event_btListarActionPerformed
+        }                  
+        
+    }//GEN-LAST:event_btCadastrarProdutoActionPerformed
 
   private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
     preencherLista();
@@ -335,9 +350,9 @@ public class TelaFornecedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btCadastrarProduto;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btIncluir;
-    private javax.swing.JButton btListar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

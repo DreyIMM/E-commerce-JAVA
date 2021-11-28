@@ -18,11 +18,7 @@ public class Pessoa {
         
     }
     
-    public void Apresentar(){
-        this.getNome();
-        this.getId();
-        this.getTelefone();
-    }
+ 
     
     public Pessoa(String nome, String email, int telefone){
         this.nome = nome; 

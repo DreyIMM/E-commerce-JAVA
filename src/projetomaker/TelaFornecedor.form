@@ -60,10 +60,10 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btExcluir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btListar" min="-2" max="-2" attributes="0"/>
+                      <Component id="btCadastrarProduto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -83,7 +83,7 @@
               <Component id="jScrollPane1" min="-2" pref="162" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btListar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btCadastrarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,12 +147,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btExcluirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btListar">
+    <Component class="javax.swing.JButton" name="btCadastrarProduto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gerar Listagem"/>
+        <Property name="text" type="java.lang.String" value="Produto"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btListarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCadastrarProdutoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

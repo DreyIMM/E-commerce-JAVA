@@ -52,9 +52,8 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
       // através do id
       f1 = fd.buscarFornecedor(id);
       // Preenche as caixas de texto com os dados do aluno
-      tfNome.setText(String.valueOf(f1.getMatricula()));
-      tfEmail.setText(f1.getNome());
-      tfTelefone.setText(f1.getTelefone());
+      tfNome.setText(f1.getNome());
+      tfTelefone.setText(f1.getNomeEmpresa());
     }
     if (operacao == 3) {
       // Determina o título da janela para uma exclusão
@@ -68,11 +67,14 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
       // através do id
       f1 = fd.buscarFornecedor(id);
       // Preenche as caixas de texto com os dados do aluno
+        tfNome.setText(f1.getNome());
+        tfNomeEmpresa.setText(f1.getNomeEmpresa());
+        tfResponsavel.setText(f1.getResponsavel());
+//      tfTelefone.setText(Integer.parseInt(f1.getTelefone().toString));
+        
+        tfResponsavel.setText(f1.getResponsavel());
+        tfRamo.setText(f1.getRamo());
      
-      tfNome.setText(f1.getNome());
-      tfNomeEmpresa.setText(f1.getNomeEmpresa());
-      tfRamo.setText(f1.getRamo());
-      System.out.print(f1.getNomeEmpresa() + f1.getRamo());
     }
   }
 
@@ -351,25 +353,6 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
           String mensagem = "Fornecedor Inserido!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
-      } else if (operacao == 2) { // Alteração
-        // Cria um objeto aluno para receber os dados da do preenchimento 
-        // da tela
-        Fornecedor f1 = new Fornecedor();
-        // Cria um objeto AlunoDAO para uso dos métodos de acesso
-        // ao banco para os alunos
-        FornecedorDAO fd = new FornecedorDAO();
-        // Determina os valores dos atributos do objeto aluno, com os dados
-        // preenchidos na tela
-        // o id irá ser usado para determinar o registro a ser alterado
-        f1.setId(id);
-//        f1.setMatricula(Integer.parseInt(tfNome.getText().toString()));
-        f1.setNome(tfEmail.getText());
-        f1.setTelefone(Integer.parseInt(tfTelefone.getText()));
-        // Verifica se a operação de alteração obteve sucesso
-        if (fd.alterar(f1)) {
-          String mensagem = "Aluno Alterado!";
-          JOptionPane.showMessageDialog(null, mensagem);
-        }
       } else if (operacao == 3) { // Exclusão
         // Cria um objeto aluno para receber os dados da do preenchimento 
         // da tela
@@ -443,6 +426,62 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
       java.util.logging.Logger.getLogger(TelaDadosFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
