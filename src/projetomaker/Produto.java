@@ -15,6 +15,8 @@ public class Produto {
     private String descricao;
     private float preco;
     private int qtdEstoque;
+    private int idEmpresa;
+    private String empresa;
 
     public Produto(){
         
@@ -70,9 +72,23 @@ public class Produto {
     public void setQtdEstoque(int qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
     }
-  
-    
-    
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+        
     
     
     

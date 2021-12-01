@@ -160,8 +160,10 @@ public class TelaFornecedor extends javax.swing.JFrame {
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
         // Executa a janela de preenchimento de dados em modo inclusão
         // 1o parâmetro = 1 - Inclusão e 2o parâmetro = 0 (zero) sem id 
+        
         TelaDadosFornecedor tdados = new TelaDadosFornecedor(1, 0);
         tdados.setVisible(true);
+        
         // Configura os comonentes que serão liberados ou restringidos
     }//GEN-LAST:event_btIncluirActionPerformed
     // Método do botão de Alteração
@@ -212,24 +214,18 @@ public class TelaFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
     // Método do botão de listar registros
     private void btCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarProdutoActionPerformed
-        // Cria um objeto ALunoDAO para acesso aos métodos de acesso
-        // ao banco do Objeto Aluno
+        
+            String nome = lista.getSelectedValue().substring(20,30);
+            System.out.print(nome);
             if (lista.getSelectedIndex() != 0) {
             String id = lista.getSelectedValue().substring(0, 3);
-            if (Integer.parseInt(id.trim()) <= 0) {
-                String mensagem = "Opção inválida!";
-                JOptionPane.showMessageDialog(null, mensagem);
-            }
-            // Executa a janela de preenchimento de dados em modo exclusão
-            // 1o parâmetro = 3 - Exclusão e 2o parâmetro = id do registro 
-            // o trim() é necessário para eliminar os espaços na conversão
-           
             
+            TelaDadosProduto tdadosProduto = new TelaDadosProduto(nome, Integer.parseInt(id.trim()));  
+                        
             TelaProduto tp = new TelaProduto(Integer.parseInt(id.trim()));
             tp.setVisible(true);
-            
-            // Configura os comonentes que serão liberados ou restringidos
-        } // Verificação de segurança
+                      
+        } 
         else {
             String mensagem = "Opção inválida!";
             JOptionPane.showMessageDialog(null, mensagem);

@@ -13,18 +13,20 @@ import javax.swing.JOptionPane;
  *
  * @author sicsu
  */
-public class TelaCliente extends javax.swing.JFrame {
+public class TelaCarrinho extends javax.swing.JFrame {
 
     // Criação de um objeto Acesso para uso em todos os métodos
     AcessoBD acesso = new AcessoBD();
     // Criação de um RecordSet para receber os registros das consultas
     ResultSet rs;
-
-    public TelaCliente() {
+    static int idComprador;
+    public TelaCarrinho() {
         
         initComponents();
-        
+       
     }
+    
+    
 
   /**
    * O conteúdo a seguir foi gerado pelo NetBeans na criação da tela e não pode
@@ -39,11 +41,7 @@ public class TelaCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lista = new javax.swing.JList<>();
         btIncluir = new javax.swing.JButton();
-        btAlterar = new javax.swing.JButton();
-        btExcluir = new javax.swing.JButton();
-        btListarProduto = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,35 +80,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
-        btAlterar.setText("Alterar");
-        btAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAlterarActionPerformed(evt);
-            }
-        });
-
-        btExcluir.setText("Excluir");
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
-            }
-        });
-
-        btListarProduto.setText("Produtos");
-        btListarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btListarProdutoActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Clientes");
-
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Produtos Comprado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,38 +88,24 @@ public class TelaCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btIncluir)
-                        .addGap(18, 18, 18)
-                        .addComponent(btAlterar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btListarProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(btIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(149, 149, 149)
                 .addComponent(jLabel1)
-                .addGap(202, 202, 202))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btListarProduto)
-                    .addComponent(btExcluir)
-                    .addComponent(btAlterar)
-                    .addComponent(btIncluir)
-                    .addComponent(jButton1))
+                .addComponent(btIncluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -164,82 +120,10 @@ public class TelaCliente extends javax.swing.JFrame {
         tdados.setVisible(true);
         // Configura os comonentes que serão liberados ou restringidos
     }//GEN-LAST:event_btIncluirActionPerformed
-    // Método do botão de Alteração
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        // A primeira linha possui o título e não um registro válido
-        // Verifica se a linha de título está selecionada, índice = 0
-        // o trim() é necessário para eliminar os espaços na conversão
-        if (lista.getSelectedIndex() != 0) {
-            String id = lista.getSelectedValue().substring(0, 3);
-            if (Integer.parseInt(id.trim()) <= 0) {
-                String mensagem = "Opção inválida!";
-                JOptionPane.showMessageDialog(null, mensagem);
-            }
-            // Executa a janela de preenchimento de dados em modo alteração
-            // 1o parâmetro = 2 - Alteração e 2o parâmetro = id do registro 
-            // o trim() é necessário para eliminar os espaços na conversão
-            TelaDadosCliente tdados = new TelaDadosCliente(2, Integer.parseInt(id.trim()));
-            tdados.setVisible(true);
-            // Configura os comonentes que serão liberados ou restringidos
-        } // Verificação de segurança
-        else {
-            String mensagem = "Opção inválida!";
-            JOptionPane.showMessageDialog(null, mensagem);
-        }
-    }//GEN-LAST:event_btAlterarActionPerformed
-    // Método do botão de Exclusão
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        // A primeira linha possui o título e não um registro válido
-        // Verifica se a linha de título está selecionada, índice = 0
-        // o trim() é necessário para eliminar os espaços na conversão     
-        if (lista.getSelectedIndex() != 0) {
-            String id = lista.getSelectedValue().substring(0, 3);
-            if (Integer.parseInt(id.trim()) <= 0) {
-                String mensagem = "Opção inválida!";
-                JOptionPane.showMessageDialog(null, mensagem);
-            }
-            // Executa a janela de preenchimento de dados em modo exclusão
-            // 1o parâmetro = 3 - Exclusão e 2o parâmetro = id do registro 
-            // o trim() é necessário para eliminar os espaços na conversão
-            TelaDadosCliente tdados = new TelaDadosCliente(3, Integer.parseInt(id.trim()));
-            tdados.setVisible(true);
-            // Configura os comonentes que serão liberados ou restringidos
-        } // Verificação de segurança
-        else {
-            String mensagem = "Opção inválida!";
-            JOptionPane.showMessageDialog(null, mensagem);
-        }
-    }//GEN-LAST:event_btExcluirActionPerformed
-    // Método do botão de listar registros
-    private void btListarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarProdutoActionPerformed
-        //Pegar o ID que está selecionado na lista
-        //E envia para TelaDadosComprar 
-        //E enviar para tela de Carrinho
-         
-
-        String nome = lista.getSelectedValue().substring(4,12);
-        System.out.print(nome);
-        if (lista.getSelectedIndex() != 0) {
-           String id = lista.getSelectedValue().substring(0, 3); 
-            int op = Integer.parseInt(id.trim());
-            TelaDadosComprar TelaDadosComprar = new TelaDadosComprar(nome, op); 
-        }
-              
-            
-        ListaProdutoCliente lpc = new ListaProdutoCliente();
-        lpc.setVisible(true);
-       
-        
-    }//GEN-LAST:event_btListarProdutoActionPerformed
 
   private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
     preencherLista();
   }//GEN-LAST:event_formWindowGainedFocus
-
-  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    // TODO add your handling code here:
-    this.dispose();
-  }//GEN-LAST:event_jButton1ActionPerformed
     // Método auxiliar da Janela de controle para preenchimento do
     // componente JList
     // Retorna o status da operação 
@@ -248,7 +132,7 @@ public class TelaCliente extends javax.swing.JFrame {
         try {
             acesso.conectar();
             // Determina a consulta a ser realizada
-            String consulta = "select * from Cliente";
+            String consulta = "select * from Carrinho";
             // Cria um objeto e prepara para realização da consulta
             PreparedStatement stm = acesso.con.prepareStatement(consulta);
             // Executa a consulta ao Banco
@@ -257,16 +141,15 @@ public class TelaCliente extends javax.swing.JFrame {
             // preencher a lista
             ArrayList<String> ar = new ArrayList();
             // Formata a linha de título do JList
-            String linha = String.format("%3s|%-15s|%-15s|%10s|%10s|%10s", 
-                    "Id", "Nome", "Email", "Telefone", "Cidade" , "Bairro");
+            String linha = String.format("%3s|%-15s|%-15s", 
+                    "Id", "ID Produto", "Valor");
             // Adiciona a linha ao ArrayList
             ar.add(linha);
             // Enquanto houver registros
             while (rs.next()) {
                 // Formata a linha de registros da lista
-                linha = String.format("%3s|%-15s|%-15s|%10s|%10s|%10s", rs.getString("id"),
-                        rs.getString("nome"), rs.getString("email") ,rs.getString("telefone"),  
-                        rs.getString("cidade"), rs.getString("bairro"));
+                linha = String.format("%3s|%-15s|%-15s", rs.getString("id"),
+                        rs.getString("idProduto"), rs.getString("valor"));
                 // Adiciona a linha ao ArrayList
                 ar.add(linha);
             }
@@ -318,14 +201,30 @@ public class TelaCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCarrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCarrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCarrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCarrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -346,17 +245,13 @@ public class TelaCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCliente().setVisible(true);
+                new TelaCarrinho().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAlterar;
-    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btIncluir;
-    private javax.swing.JButton btListarProduto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

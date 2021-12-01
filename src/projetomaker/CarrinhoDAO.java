@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
  */
 // Classe de controle da manipução das operações no 
 // Banco de dados da classe Aluno
-public class ClienteDAO {
+public class CarrinhoDAO {
   // Método para realizar a busca na Tabela Alunos dos dados do registro
   // do aluno identificado pelo id
 
-  public Cliente bucasCliente(int id) {
+  public Carrinho bucasCliente(int id) {
     // Cria um objeto de Conexão com o Banco de Dados
     AcessoBD acesso = new AcessoBD();
     // Cria um objeto Aluno para retornar os dados do registro
@@ -63,7 +63,7 @@ public class ClienteDAO {
   }
 
   // Método para realizar a inclusão de um no registro na Tabela Alunos
-  public boolean inserir(Cliente cliente) {
+  public boolean inserir(Carrinho carrinho) {
     // Cria o objeto para a conexão
     AcessoBD acesso = new AcessoBD();
     // Tenta realizar a conexão com o banco de Dados para realizar a operação
@@ -73,9 +73,9 @@ public class ClienteDAO {
       // Tramento de exceções
       try {
         // Define a consulta de inclusão na tabela Fornecedor    
-        String consulta = "INSERT into Cliente (nome, email, telefone, rua, numero, bairro, cidade, tipoEndereco) "
-                + "VALUES('" + cliente.getNome() + "','"
-                + cliente.getEmail() + "','" + cliente.getTelefone() + "','" + cliente.Endereco.getRua()+ "','" + cliente.Endereco.getNumero() + "','" + cliente.Endereco.getBairro()+ "','" + cliente.Endereco.getCidade() + "','" + cliente.Endereco.getTipoDoEndereco()+  "')";                                                    
+        String consulta = "INSERT into Carrinho (idProduto, valor) "
+                + "VALUES('" + carrinho.getIdProduto() + "','"
+                + carrinho.getValor() + "')";                                                    
         // Cria um objeto para realizar a consulta
         Statement st = acesso.con.createStatement();
         // Executa a consulta
@@ -84,7 +84,7 @@ public class ClienteDAO {
       } catch (SQLException e) {
         // Informa caso a operação não tenha obtido sucesso
         e.printStackTrace();
-        String mensagem = "Cliente não Incluído!";
+        String mensagem = "Produto não inserido no carrinho!";
         JOptionPane.showMessageDialog(null, mensagem);
         // Informa que a operação NÃO obteve sucesso
         return false;

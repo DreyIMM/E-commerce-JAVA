@@ -81,9 +81,9 @@
                               <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfPreco" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfEstoque" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tfPreco" pref="85" max="32767" attributes="0"/>
+                                  <Component id="tfEstoque" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>

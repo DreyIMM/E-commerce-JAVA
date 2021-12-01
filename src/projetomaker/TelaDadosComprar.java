@@ -11,65 +11,39 @@ import javax.swing.JOptionPane;
  */
 public class TelaDadosComprar extends javax.swing.JFrame {
 
-  // Atributos da clsses para ficarem disponíveis para todos os métodos
-  int operacao;
- 
-  // Construtor da janela alterado para receber o tipo de operação (1, 2 ou 3)
-  // e o id do registro no banco, se id = 0 é uma inclusão
-  public TelaDadosComprar(String empresa) {
-    initComponents();
-    // repassa os dados recebidos para os atributos da classe
+    // Atributos da clsses para ficarem disponíveis para todos os métodos
+    static int idComprador, idProduto;
+    static String  nomeComprador;
+    static Float valorProduto, valorFinal;
     
-    // Limpa os conteúdos das caixas de texto
-    tfProduto.setText("");;
-    tfEmpresa.setText(empresa);
-    tfValor.setText("");
-    tfQuantidade.setText("");
+    // Construtor da janela alterado para receber o tipo de operação (1, 2 ou 3)
+    // e o id do registro no banco, se id = 0 é uma inclusão
    
-    // Altera a fonte do Label de Título da janela
-    lb1.setFont(new Font("Times Roman", Font.PLAIN, 14));
-    if (operacao == 1) {
-      // Determina o título da janela para uma inclusão
-      lb1.setText("Inclusão");
+    // Foi instanciado na lista clientes, TelaDadosComprador, com isso, tenho acesso ao nomeComprador e o IdComprador
+    public TelaDadosComprar(String nComprador, int idComprado){
+        this.nomeComprador = nComprador;
+        this.idComprador = idComprado;
+    }
+  
+    public TelaDadosComprar(int idPro) {
+      initComponents();
+      this.idProduto = idPro;
+      ProdutoDAO pdUnico = new ProdutoDAO();
+      Produto pUnico = new Produto();
       
-    }
-    if (operacao == 2) {
-      // Determina o título da janela para uma alteração
-      lb1.setText("Alteração");
-      // Cria um objeto aluno para receber os dados da consulta
-      Fornecedor f1 = new Fornecedor();
-      // Cria um objeto AlunoDAO para uso dos métodos de acesso
-      // ao banco para os alunos
-     FornecedorDAO fd = new FornecedorDAO();
-      // Realiza a busca no Banco os dados do registro do aluno
-      // através do id
-      f1 = fd.buscarFornecedor(id);
-      // Preenche as caixas de texto com os dados do aluno
-      tfProduto.setText(f1.getNome());
-      tfValor.setText(f1.getNomeEmpresa());
-    }
-    if (operacao == 3) {
-      // Determina o título da janela para uma exclusão
-      lb1.setText("Exclusão");
-      // Cria um objeto aluno para receber os dados da consulta
-       Fornecedor f1 = new Fornecedor();
-      // Cria um objeto AlunoDAO para uso dos métodos de acesso
-      // ao banco para os alunos
-      FornecedorDAO fd = new FornecedorDAO();
-      // Realiza a busca no Banco os dados do registro do aluno
-      // através do id
-      f1 = fd.buscarFornecedor(id);
-      // Preenche as caixas de texto com os dados do aluno
-        tfProduto.setText(f1.getNome());
-        tfQuantidade.setText(f1.getNomeEmpresa());
-        tfResponsavel.setText(f1.getResponsavel());
-//      tfTelefone.setText(Integer.parseInt(f1.getTelefone().toString));
-        
-        tfResponsavel.setText(f1.getResponsavel());
-        tfRamo.setText(f1.getRamo());
+      pUnico = pdUnico.buscarProdutoUnico(idProduto);
+      this.valorProduto = pUnico.getPreco();
+      
+      // para essa opção é inserido o codigo do produto tfProduto.setText(String.valueOf(idProduto));
+      tfIdCliente.setText(nomeComprador);
+      tfProduto.setText(pUnico.getNome());
+      tfEmpresa.setText(pUnico.getEmpresa());
+      tfValor.setText(String.valueOf(pUnico.getPreco()));
+      tfQuantidade.setText("");
+      
      
+      //tfIdCliente.setText(String.valueOf(id));
     }
-  }
 
   /**
    * O conteúdo a seguir foi gerado pelo NetBeans na criação da tela e não pode
@@ -91,6 +65,7 @@ public class TelaDadosComprar extends javax.swing.JFrame {
         lb1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfQuantidade = new javax.swing.JTextField();
+        tfIdCliente = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -124,55 +99,66 @@ public class TelaDadosComprar extends javax.swing.JFrame {
         });
 
         tfEmpresa.setText("jTextField2");
+        tfEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfEmpresaActionPerformed(evt);
+            }
+        });
 
         tfValor.setText("jTextField3");
 
-        lb1.setText("Comprando");
+        lb1.setText("Cliente");
 
         jLabel8.setText("Quantidade");
 
         tfQuantidade.setText("jTextField1");
+
+        tfIdCliente.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(lb4)
-                            .addComponent(lb3)
-                            .addComponent(lb2))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEmpresa)
-                            .addComponent(tfProduto)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                                    .addComponent(tfQuantidade, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(btConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(btCancelar)
-                        .addGap(66, 66, 66)))
-                .addGap(57, 57, 57))
+                .addGap(58, 58, 58)
+                .addComponent(btConfirmar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(btCancelar)
+                .addGap(123, 123, 123))
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(lb4)
+                    .addComponent(lb3)
+                    .addComponent(lb2))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfEmpresa)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfProduto)
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfValor, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(115, 115, 115)
                 .addComponent(lb1)
+                .addGap(18, 18, 18)
+                .addComponent(tfIdCliente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(lb1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb1)
+                    .addComponent(tfIdCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb2)
                     .addComponent(tfProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,7 +174,7 @@ public class TelaDadosComprar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btConfirmar)
                     .addComponent(btCancelar))
@@ -199,54 +185,24 @@ public class TelaDadosComprar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Método do botão de Confirmação
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
-      if (operacao == 1) { // Inclusão
-        // Cria um objeto aluno para receber os dados da do preenchimento 
-        // da tela
-        Fornecedor f1 = new Fornecedor();
+       
+        Carrinho c1 = new Carrinho();
         // Cria um objeto AlunoDAO para uso dos métodos de acesso
         // ao banco para os alunos
-        FornecedorDAO fd = new FornecedorDAO();
+        CarrinhoDAO cd = new CarrinhoDAO();
         // Determina os valores dos atributos do objeto aluno, com os dados
         // preenchidos na tela
         // o id é gerado automaticamente pelo Access
-        f1.setNome(tfProduto.getText());
-        f1.setEmail(tfEmpresa.getText());
-        f1.setTelefone(Integer.parseInt(tfValor.getText()));
-        f1.setNomeEmpresa(tfQuantidade.getText());
-        f1.setResponsavel(tfResponsavel.getText());
-        f1.setRamo(tfRamo.getText());
-        
-        f1.Endereco.setRua(tfRua.getText());
-        f1.Endereco.setNumero(Integer.parseInt(tfNumero.getText()));
-        f1.Endereco.setBairro(tfBairro.getText());
-        f1.Endereco.setCidade(tfCidade.getText());
-        f1.Endereco.setTipoDoEndereco(tfTipoDoEndereco.getText());
+        c1.setIdProduto(idProduto);
+        valorFinal = (valorProduto * Float.parseFloat(tfQuantidade.getText()));
+        c1.setValor(valorFinal);
         
         // Verifica se a operação de inserção obteve sucesso
-        if (fd.inserir(f1)) {
+        if (cd.inserir(c1)) {
           String mensagem = "Fornecedor Inserido!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
-      } else if (operacao == 3) { // Exclusão
-        // Cria um objeto aluno para receber os dados da do preenchimento 
-        // da tela
-        Fornecedor f1 = new Fornecedor();
-        // Cria um objeto AlunoDAO para uso dos métodos de acesso
-        // ao banco para os alunos
-        FornecedorDAO fd = new FornecedorDAO();
-        // Determina os valores dos atributos do objeto aluno, com os dados
-        // preenchidos na tela
-        // o id irá ser usado para determinar o registro a ser alterado
-        f1.setId(id);
-        f1.setNome(tfProduto.getText());
-        f1.setNomeEmpresa(tfQuantidade.getText());
-        f1.setResponsavel(tfResponsavel.getText());
-        // Verifica se a operação de exclusão obteve sucesso
-        if (fd.excluir(f1)) {
-          String mensagem = "Fornecedor Excluído!";
-          JOptionPane.showMessageDialog(null, mensagem);
-        }
-      }
+      
       this.dispose();
     }//GEN-LAST:event_btConfirmarActionPerformed
 
@@ -258,6 +214,10 @@ public class TelaDadosComprar extends javax.swing.JFrame {
     private void tfProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfProdutoActionPerformed
+
+    private void tfEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfEmpresaActionPerformed
 
   /**
    * @param args the command line arguments
@@ -437,6 +397,7 @@ public class TelaDadosComprar extends javax.swing.JFrame {
     private javax.swing.JLabel lb3;
     private javax.swing.JLabel lb4;
     private javax.swing.JTextField tfEmpresa;
+    private javax.swing.JLabel tfIdCliente;
     private javax.swing.JTextField tfProduto;
     private javax.swing.JTextField tfQuantidade;
     private javax.swing.JTextField tfValor;

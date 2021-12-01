@@ -44,7 +44,7 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         lista = new javax.swing.JList<>();
-        btIncluir = new javax.swing.JButton();
+        btTelaComprar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -79,10 +79,10 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lista);
 
-        btIncluir.setText("Comprar");
-        btIncluir.addActionListener(new java.awt.event.ActionListener() {
+        btTelaComprar.setText("Comprar");
+        btTelaComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIncluirActionPerformed(evt);
+                btTelaComprarActionPerformed(evt);
             }
         });
 
@@ -111,7 +111,7 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btTelaComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -131,7 +131,7 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar)
-                    .addComponent(btIncluir)
+                    .addComponent(btTelaComprar)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -140,36 +140,37 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
    // Método do botão de inclusão
-    private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
+    private void btTelaComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTelaComprarActionPerformed
         // Executa a janela de comprar produto
         // 1o parâmetro = 1 chamara a uma função dentro de TelaDadosComprarDAO, onde acessa o banco de 
-        //Quando clicar em comprar, devo enviar pelo parametro (Empresa,Preço do produto, quantidade em estoque, nomeEempresa)             
-        TelaDadosComprar tcompras = new TelaDadosComprar("ONS");
-        tcompras.setVisible(true);
         
-    }//GEN-LAST:event_btIncluirActionPerformed
-    // Método do botão de Alteração
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        // A primeira linha possui o título e não um registro válido
-        // Verifica se a linha de título está selecionada, índice = 0
-        // o trim() é necessário para eliminar os espaços na conversão
         if (lista.getSelectedIndex() != 0) {
             String id = lista.getSelectedValue().substring(0, 3);
             if (Integer.parseInt(id.trim()) <= 0) {
                 String mensagem = "Opção inválida!";
                 JOptionPane.showMessageDialog(null, mensagem);
             }
-            // Executa a janela de preenchimento de dados em modo alteração
-            // 1o parâmetro = 2 - Alteração e 2o parâmetro = id do registro 
-            // o trim() é necessário para eliminar os espaços na conversão
-            TelaDadosCliente tdados = new TelaDadosCliente(2, Integer.parseInt(id.trim()));
-            tdados.setVisible(true);
+            String nomeEmpresa = lista.getSelectedValue().substring(0,20);
+            TelaDadosComprar tcompras = new TelaDadosComprar(Integer.parseInt(id.trim()));
+            tcompras.setVisible(true);
             // Configura os comonentes que serão liberados ou restringidos
         } // Verificação de segurança
         else {
             String mensagem = "Opção inválida!";
             JOptionPane.showMessageDialog(null, mensagem);
         }
+        
+        
+       
+        
+    }//GEN-LAST:event_btTelaComprarActionPerformed
+    // Método do botão de Alteração
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        // A primeira linha possui o título e não um registro válido
+        // Verifica se a linha de título está selecionada, índice = 0
+        // o trim() é necessário para eliminar os espaços na conversão
+        TelaCarrinho tc = new TelaCarrinho();
+        tc.setVisible(true);
     }//GEN-LAST:event_btAlterarActionPerformed
 
   private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -197,7 +198,7 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
             // preencher a lista
             ArrayList<String> ar = new ArrayList();
             // Formata a linha de título do JList
-            String linha = String.format("%3s|%-23s|%5s|%25s|%5s|%10s", 
+            String linha = String.format("%3s|%-10s|%15s|%10s|%5s|%10s", 
                     "Id", "Nome", "Descricao", "Preco" , "Estoque", "Empresa");
             // Adiciona a linha ao ArrayList
             ar.add(linha);
@@ -341,7 +342,7 @@ public class ListaProdutoCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
-    private javax.swing.JButton btIncluir;
+    private javax.swing.JButton btTelaComprar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -12,24 +12,31 @@ import javax.swing.JOptionPane;
 public class TelaDadosProduto extends javax.swing.JFrame {
 
   // Atributos da clsses para ficarem disponíveis para todos os métodos
-  int operacao;
-  int id;
-
+    int operacao;
+    static int id;
+    static String nomeEmpresa;
+  
   // Construtor da janela alterado para receber o tipo de operação (1, 2 ou 3)
   // e o id do registro no banco, se id = 0 é uma inclusão
+  public TelaDadosProduto(String empresa, int id){
+     this.nomeEmpresa = empresa;
+     this.id = id;
+     
+    }
+  
   public TelaDadosProduto(int operacao, int id) {
     initComponents();
     // repassa os dados recebidos para os atributos da classe
     this.operacao = operacao;
-    this.id = id;
+ 
     // Limpa os conteúdos das caixas de texto
     tfNome.setText("");
     tfCodProduto.setText("");
     tfDescricao.setText("");
     tfPreco.setText("");
     tfEstoque.setText("");
-    tfEmpresa.setText("");
-    tdIdEmpresa.setText("teste");
+    tfEmpresa.setText(nomeEmpresa);
+    tdIdEmpresa.setText(String.valueOf(id));
     
     // Altera a fonte do Label de Título da janela
     lb1.setFont(new Font("Times Roman", Font.PLAIN, 14));
@@ -203,9 +210,9 @@ public class TelaDadosProduto extends javax.swing.JFrame {
                                     .addComponent(tfNome))
                                 .addGap(57, 57, 57))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                    .addComponent(tfEstoque))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
@@ -255,27 +262,24 @@ public class TelaDadosProduto extends javax.swing.JFrame {
       if (operacao == 1) { // Inclusão
         // Cria um objeto aluno para receber os dados da do preenchimento 
         // da tela
-        Cliente c1 = new Cliente();
+        Produto p1 = new Produto();
         // Cria um objeto AlunoDAO para uso dos métodos de acesso
         // ao banco para os alunos
-        ClienteDAO cd = new ClienteDAO();
+        ProdutoDAO pd = new ProdutoDAO();
         // Determina os valores dos atributos do objeto aluno, com os dados
         // preenchidos na tela
         // o id é gerado automaticamente pelo Access
-        c1.setNome(tfNome.getText());
-        c1.setEmail(tfCodProduto.getText());
-        c1.setTelefone(Integer.parseInt(tfDescricao.getText()));
-        
-        
-//        c1.Endereco.setRua(tfRua.getText());
-//        c1.Endereco.setNumero(Integer.parseInt(tfNumero.getText()));
-//        c1.Endereco.setBairro(tfBairro.getText());
-//        c1.Endereco.setCidade(tfCidade.getText());
-//        c1.Endereco.setTipoDoEndereco(tfTipoDoEndereco.getText());
+        p1.setNome(tfNome.getText());
+        p1.setCodProduto(tfCodProduto.getText());
+        p1.setDescricao(tfDescricao.getText());
+        p1.setPreco(Float.parseFloat(tfPreco.getText()));
+        p1.setQtdEstoque(Integer.parseInt(tfEstoque.getText()));
+        p1.setIdEmpresa(Integer.parseInt(tdIdEmpresa.getText()));
+        p1.setEmpresa(tfEmpresa.getText());
         
         // Verifica se a operação de inserção obteve sucesso
-        if (cd.inserir(c1)) {
-          String mensagem = "Fornecedor Inserido!";
+        if (pd.inserir(p1)) {
+          String mensagem = "Produto Cadastrado Inserido!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
       } else if (operacao == 3) { // Exclusão
