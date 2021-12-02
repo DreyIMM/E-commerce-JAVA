@@ -26,6 +26,10 @@ public class TelaCarrinho extends javax.swing.JFrame {
        
     }
     
+    public TelaCarrinho(int idComprado){
+        this.idComprador = idComprado;
+    }
+    
     
 
   /**
@@ -42,6 +46,7 @@ public class TelaCarrinho extends javax.swing.JFrame {
         lista = new javax.swing.JList<>();
         btIncluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +87,13 @@ public class TelaCarrinho extends javax.swing.JFrame {
 
         jLabel1.setText("Produtos Comprado");
 
+        jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,12 +102,15 @@ public class TelaCarrinho extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(btIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(149, 149, 149)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +120,9 @@ public class TelaCarrinho extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btIncluir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btIncluir)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -124,6 +141,11 @@ public class TelaCarrinho extends javax.swing.JFrame {
   private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
     preencherLista();
   }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Método auxiliar da Janela de controle para preenchimento do
     // componente JList
     // Retorna o status da operação 
@@ -132,7 +154,7 @@ public class TelaCarrinho extends javax.swing.JFrame {
         try {
             acesso.conectar();
             // Determina a consulta a ser realizada
-            String consulta = "select * from Carrinho";
+            String consulta = "select * from Carrinho where idCliente=" +String.valueOf(idComprador).trim();;
             // Cria um objeto e prepara para realização da consulta
             PreparedStatement stm = acesso.con.prepareStatement(consulta);
             // Executa a consulta ao Banco
@@ -252,6 +274,7 @@ public class TelaCarrinho extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIncluir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

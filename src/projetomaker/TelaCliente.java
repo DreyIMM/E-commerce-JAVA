@@ -222,7 +222,8 @@ public class TelaCliente extends javax.swing.JFrame {
         if (lista.getSelectedIndex() != 0) {
            String id = lista.getSelectedValue().substring(0, 3); 
             int op = Integer.parseInt(id.trim());
-            TelaDadosComprar TelaDadosComprar = new TelaDadosComprar(nome, op); 
+            TelaDadosComprar TelaDadosComprar = new TelaDadosComprar(nome, op);
+            TelaCarrinho TelaCarrinho = new TelaCarrinho(op);
         }
               
             

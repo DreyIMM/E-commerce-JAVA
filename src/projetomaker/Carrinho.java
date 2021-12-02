@@ -3,7 +3,7 @@ package projetomaker;
 
 
 public class Carrinho {
-    private int idProduto;
+    private int idProduto, IdCliente;
     private float valor;
 
     
@@ -23,5 +23,13 @@ public class Carrinho {
 
     public void setValor(float valor) {
         this.valor = valor;
-    }        
+    }
+    
+    public int GetIdCliente(){
+        return IdCliente;
+    }
+    
+    public void setIdCliente(int idCliente){
+        this.IdCliente = idCliente;
+    }
 }

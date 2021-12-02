@@ -196,7 +196,7 @@ public class TelaDadosComprar extends javax.swing.JFrame {
         c1.setIdProduto(idProduto);
         valorFinal = (valorProduto * Float.parseFloat(tfQuantidade.getText()));
         c1.setValor(valorFinal);
-        
+        c1.setIdCliente(idComprador);
         // Verifica se a operação de inserção obteve sucesso
         if (cd.inserir(c1)) {
           String mensagem = "Fornecedor Inserido!";

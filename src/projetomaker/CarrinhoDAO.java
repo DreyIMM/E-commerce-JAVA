@@ -1,4 +1,4 @@
-package projetomaker;
+ package projetomaker;
 // Bibliotecas necessárias
 import projetomaker.AcessoBD;
 import projetomaker.Fornecedor;
@@ -31,7 +31,7 @@ public class CarrinhoDAO {
       // Tramento de exceções
       try {
         // Define a consulta na tabela Alunos através do id
-       String consulta = "select * from Cliente where id="
+       String consulta = "select * from Cliente"
                 + String.valueOf(id).trim();
         // Cria um objeto para realizar a consulta
         PreparedStatement stm = acesso.con.prepareStatement(consulta);
@@ -73,8 +73,8 @@ public class CarrinhoDAO {
       // Tramento de exceções
       try {
         // Define a consulta de inclusão na tabela Fornecedor    
-        String consulta = "INSERT into Carrinho (idProduto, valor) "
-                + "VALUES('" + carrinho.getIdProduto() + "','"
+        String consulta = "INSERT into Carrinho (idCliente, idProduto, valor) "
+                + "VALUES('" +carrinho.GetIdCliente() + "','" + carrinho.getIdProduto() + "','"
                 + carrinho.getValor() + "')";                                                    
         // Cria um objeto para realizar a consulta
         Statement st = acesso.con.createStatement();
