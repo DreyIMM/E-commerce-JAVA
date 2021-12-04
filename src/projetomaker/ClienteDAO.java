@@ -45,7 +45,11 @@ public class ClienteDAO {
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
             cliente.setTelefone(Integer.parseInt(rs.getString("telefone")));
-                
+            cliente.Endereco.setRua(rs.getString("rua"));
+            cliente.Endereco.setNumero(Integer.parseInt(rs.getString("numero")));
+            cliente.Endereco.setBairro(rs.getString("bairro"));
+            cliente.Endereco.setCidade(rs.getString("cidade"));
+            cliente.Endereco.setTipoDoEndereco(rs.getString("tipoEndereco"));
           }
         }
       } catch (Exception e) {
@@ -123,5 +127,33 @@ public class ClienteDAO {
     return true;
   }
    
+    public boolean alterar(Cliente cliente) {
+    // cria o objeto para a conexão
+    AcessoBD acesso = new AcessoBD();
+    // Tenta realizar a conexão com o banco de Dados para realizar a operação
+    if (acesso.conectar()) {
+      // Tramento de exceções
+      try {
+        // Define a consulta de alteração na tabela Cliente 
+        String consulta = "UPDATE Cliente SET id="
+                + cliente.getId() + ",nome='" + cliente.getNome()+ "', email='" + cliente.getEmail() + "', telefone='" + cliente.getTelefone() + "', cidade='" +cliente.Endereco.getCidade()+ "', bairro='" +cliente.Endereco.getBairro()+ "' WHERE id=" + cliente.getId();
+        // Cria um objeto para realizar a consulta
+        Statement st = acesso.con.createStatement();
+        // Executa a consulta
+        st.executeUpdate(consulta);
+      } catch (Exception e) {
+        // Informa caso a operação não tenha obtido sucesso
+        e.printStackTrace();
+        String mensagem = "Cliente não Alterado!";
+        JOptionPane.showMessageDialog(null, mensagem);
+        return false;
+      }
+    }
+    // Desconecta com o Banco após realizar a operação
+    acesso.desconectar();
+    // Informa que a operação obteve sucesso
+    return true;
+  }
+  
   
 }

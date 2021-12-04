@@ -4,7 +4,7 @@ package projetomaker;
 public class Fornecedor extends Pessoa{
   
 
-    private String nomeEmpresa, Responsavel, Ramo;
+    private String nomeEmpresa, responsavel, ramo;
   
   
     // Métodos de Acesso
@@ -18,19 +18,19 @@ public class Fornecedor extends Pessoa{
     }
 
     public String getResponsavel() {
-        return Responsavel;
+        return responsavel;
     }
 
     public void setResponsavel(String Responsavel) {
-        this.Responsavel = Responsavel;
+        this.responsavel = Responsavel;
     }
 
     public String getRamo() {
-        return Ramo;
+        return ramo;
     }
 
     public void setRamo(String Ramo) {
-        this.Ramo = Ramo;
+        this.ramo = Ramo;
     }
   
     // Métodos Construtores
@@ -41,8 +41,8 @@ public class Fornecedor extends Pessoa{
     public Fornecedor(String nome, String email, int telefone, String rua, String bairro, String cidade, String estado, String pais, String complemento, String tipoDoEndereco,int numero,String nomeEmpresa, String ramo, String responsavel) {
       super.CadastrarPessoa(nome, email, telefone);
       super.Endereco.Cadastrar(rua, bairro,  cidade,  estado,  pais,  complemento,  tipoDoEndereco, numero);
-      this.Ramo = ramo;
-      this.Responsavel = responsavel;
+      this.ramo = ramo;
+      this.responsavel = responsavel;
       this.nomeEmpresa = nomeEmpresa;
     }
 

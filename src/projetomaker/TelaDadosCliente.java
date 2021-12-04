@@ -17,11 +17,11 @@ public class TelaDadosCliente extends javax.swing.JFrame {
 
   // Construtor da janela alterado para receber o tipo de operação (1, 2 ou 3)
   // e o id do registro no banco, se id = 0 é uma inclusão
-  public TelaDadosCliente(int operacao, int id) {
+  public TelaDadosCliente(int operation, int idc) {
     initComponents();
     // repassa os dados recebidos para os atributos da classe
-    this.operacao = operacao;
-    this.id = id;
+    this.operacao = operation;
+    this.id = idc;
     // Limpa os conteúdos das caixas de texto
     tfNome.setText("");
     tfEmail.setText("");
@@ -48,9 +48,15 @@ public class TelaDadosCliente extends javax.swing.JFrame {
       // Realiza a busca no Banco os dados do registro do aluno
       // através do id
       c1 = cd.bucasCliente(id);
-      // Preenche as caixas de texto com os dados do aluno
+      // Preenche as caixas de texto com os dados do cliente
       tfNome.setText(c1.getNome());
-      
+      tfEmail.setText(c1.getEmail());
+      tfTelefone.setText(String.valueOf(c1.getTelefone()));
+      tfRua.setText(c1.Endereco.getRua());
+      tfBairro.setText(c1.Endereco.getBairro());
+      tfCidade.setText(c1.Endereco.getCidade());
+      tfTipoDoEndereco.setText(c1.Endereco.getTipoDoEndereco());
+      tfNumero.setText(String.valueOf(c1.Endereco.getNumero()));
     }
     if (operacao == 3) {
       // Determina o título da janela para uma exclusão
@@ -67,8 +73,7 @@ public class TelaDadosCliente extends javax.swing.JFrame {
         tfNome.setText(c1.getNome());
         tfEmail.setText(c1.getEmail());
         tfTelefone.setText(String.valueOf(c1.getTelefone()));
-        
-       
+               
      
     }
   }
@@ -306,7 +311,33 @@ public class TelaDadosCliente extends javax.swing.JFrame {
         
         // Verifica se a operação de inserção obteve sucesso
         if (cd.inserir(c1)) {
-          String mensagem = "Fornecedor Inserido!";
+          String mensagem = "Cliente Inserido!";
+          JOptionPane.showMessageDialog(null, mensagem);
+        }
+      }else if (operacao == 2) { // Alteração
+        // Cria um objeto aluno para receber os dados da do preenchimento 
+        // da tela
+        Cliente c1 = new Cliente();
+        // Cria um objeto AlunoDAO para uso dos métodos de acesso
+        // ao banco para os alunos
+        ClienteDAO cd = new ClienteDAO();
+        // Determina os valores dos atributos do objeto aluno, com os dados
+        // preenchidos na tela
+        // o id irá ser usado para determinar o registro a ser alterado
+       
+        c1.setId(id);
+        c1.setNome(tfNome.getText());
+        c1.setEmail(tfEmail.getText());
+        c1.setTelefone(Integer.parseInt(tfTelefone.getText().toString()));
+        c1.Endereco.setRua(tfRua.getText());
+        c1.Endereco.setNumero(Integer.parseInt(tfNumero.getText().toString()));
+        c1.Endereco.setBairro(tfBairro.getText());
+        c1.Endereco.setCidade(tfCidade.getText());
+        c1.Endereco.setTipoDoEndereco(tfTipoDoEndereco.getText());
+       
+        // Verifica se a operação de alteração obteve sucesso
+        if (cd.alterar(c1)) {
+          String mensagem = "Cliente Alterado!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
       } else if (operacao == 3) { // Exclusão
@@ -324,7 +355,7 @@ public class TelaDadosCliente extends javax.swing.JFrame {
         c1.setTelefone(Integer.parseInt(tfTelefone.getText()));
         // Verifica se a operação de exclusão obteve sucesso
         if (cd.excluir(c1)) {
-          String mensagem = "Fornecedor Excluído!";
+          String mensagem = "Cliente Excluído!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
       }

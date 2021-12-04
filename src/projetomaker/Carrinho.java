@@ -5,7 +5,7 @@ package projetomaker;
 public class Carrinho {
     private int idProduto, IdCliente;
     private float valor;
-
+    private String nomeProduto;
     
     
     
@@ -25,11 +25,19 @@ public class Carrinho {
         this.valor = valor;
     }
     
-    public int GetIdCliente(){
+    public int getIdCliente(){
         return IdCliente;
     }
     
     public void setIdCliente(int idCliente){
         this.IdCliente = idCliente;
+    }
+    
+    public String getNomeProduto(){
+        return nomeProduto;
+    }
+    
+    public void SetNomeProduto(String nomeProduto){
+        this.nomeProduto = nomeProduto;
     }
 }

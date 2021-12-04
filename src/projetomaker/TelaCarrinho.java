@@ -78,7 +78,7 @@ public class TelaCarrinho extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lista);
 
-        btIncluir.setText("Incluir");
+        btIncluir.setText("Finalizar Compra");
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btIncluirActionPerformed(evt);
@@ -131,11 +131,17 @@ public class TelaCarrinho extends javax.swing.JFrame {
 
    // Método do botão de inclusão
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
-        // Executa a janela de preenchimento de dados em modo inclusão
-        // 1o parâmetro = 1 - Inclusão e 2o parâmetro = 0 (zero) sem id 
-        TelaDadosCliente tdados = new TelaDadosCliente(1, 0);
-        tdados.setVisible(true);
+        
+        Carrinho carrinho = new Carrinho();
+        CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
+        
+        carrinho.setIdCliente(idComprador);
+        carrinhoDAO.excluir(carrinho);
+        
+        String mensagem = "Compra finalizada !";
+        JOptionPane.showMessageDialog(null, mensagem);
         // Configura os comonentes que serão liberados ou restringidos
+        this.dispose();
     }//GEN-LAST:event_btIncluirActionPerformed
 
   private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -164,13 +170,13 @@ public class TelaCarrinho extends javax.swing.JFrame {
             ArrayList<String> ar = new ArrayList();
             // Formata a linha de título do JList
             String linha = String.format("%3s|%-15s|%-15s", 
-                    "Id", "ID Produto", "Valor");
+                    "Id","Produto" ,"ID Produto", "Valor");
             // Adiciona a linha ao ArrayList
             ar.add(linha);
             // Enquanto houver registros
             while (rs.next()) {
                 // Formata a linha de registros da lista
-                linha = String.format("%3s|%-15s|%-15s", rs.getString("id"),
+                linha = String.format("%3s|%-15s|%-15s|%-15s", rs.getString("id"), rs.getString("nomeProduto"),
                         rs.getString("idProduto"), rs.getString("valor"));
                 // Adiciona a linha ao ArrayList
                 ar.add(linha);

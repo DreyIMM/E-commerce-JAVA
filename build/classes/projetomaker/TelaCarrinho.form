@@ -116,7 +116,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btIncluir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Incluir"/>
+        <Property name="text" type="java.lang.String" value="Finalizar Compra"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btIncluirActionPerformed"/>

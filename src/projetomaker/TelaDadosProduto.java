@@ -1,6 +1,7 @@
 package projetomaker;
 
 import projetomaker.ClienteDAO;
+import projetomaker.ProdutoDAO;
 import projetomaker.Cliente;
 import java.awt.Font;
 import javax.swing.JOptionPane;
@@ -21,14 +22,13 @@ public class TelaDadosProduto extends javax.swing.JFrame {
   public TelaDadosProduto(String empresa, int id){
      this.nomeEmpresa = empresa;
      this.id = id;
-     
     }
   
   public TelaDadosProduto(int operacao, int id) {
     initComponents();
     // repassa os dados recebidos para os atributos da classe
     this.operacao = operacao;
- 
+    this.id = id;
     // Limpa os conteúdos das caixas de texto
     tfNome.setText("");
     tfCodProduto.setText("");
@@ -48,35 +48,42 @@ public class TelaDadosProduto extends javax.swing.JFrame {
       // Determina o título da janela para uma alteração
       lb1.setText("Alteração");
       // Cria um objeto aluno para receber os dados da consulta
-      Cliente c1 = new Cliente();
+      Produto p1 = new Produto();
       // Cria um objeto AlunoDAO para uso dos métodos de acesso
       // ao banco para os alunos
-      ClienteDAO cd = new ClienteDAO();
+      ProdutoDAO pd = new ProdutoDAO();
       // Realiza a busca no Banco os dados do registro do aluno
       // através do id
-      c1 = cd.bucasCliente(id);
+      p1 = pd.buscarProdutoUnico(id);
       // Preenche as caixas de texto com os dados do aluno
-      tfNome.setText(c1.getNome());
+        tfNome.setText(p1.getNome());
+        tfCodProduto.setText(p1.getCodProduto());
+        tfDescricao.setText(p1.getDescricao());
+        tfPreco.setText(String.valueOf(p1.getPreco()));
+        tfEstoque.setText(String.valueOf(p1.getQtdEstoque()));
+        tdIdEmpresa.setText(String.valueOf(p1.getIdEmpresa()));
+        tfEmpresa.setText(p1.getEmpresa());
       
     }
     if (operacao == 3) {
       // Determina o título da janela para uma exclusão
       lb1.setText("Exclusão");
       // Cria um objeto aluno para receber os dados da consulta
-       Cliente c1 = new Cliente();
+       Produto p1 = new Produto();
       // Cria um objeto AlunoDAO para uso dos métodos de acesso
       // ao banco para os alunos
-       ClienteDAO cd = new ClienteDAO();
+       ProdutoDAO pd = new ProdutoDAO();
       // Realiza a busca no Banco os dados do registro do aluno
       // através do id
-        c1 = cd.bucasCliente(id);
-      // Preenche as caixas de texto com os dados do aluno
-        tfNome.setText(c1.getNome());
-        tfCodProduto.setText(c1.getEmail());
-        tfDescricao.setText(String.valueOf(c1.getTelefone()));
-        
-       
-     
+        p1 = pd.buscarProdutoUnico(id);
+        // Preenche as caixas de texto com os dados do aluno
+        tfNome.setText(p1.getNome());
+        tfCodProduto.setText(p1.getCodProduto());
+        tfDescricao.setText(p1.getDescricao());
+        tfPreco.setText(String.valueOf(p1.getPreco()));
+        tfEstoque.setText(String.valueOf(p1.getQtdEstoque()));
+        tdIdEmpresa.setText(String.valueOf(p1.getIdEmpresa()));
+        tfEmpresa.setText(p1.getEmpresa());    
     }
   }
 
@@ -279,25 +286,54 @@ public class TelaDadosProduto extends javax.swing.JFrame {
         
         // Verifica se a operação de inserção obteve sucesso
         if (pd.inserir(p1)) {
-          String mensagem = "Produto Cadastrado Inserido!";
+          String mensagem = "Produto Cadastrado !";
+          JOptionPane.showMessageDialog(null, mensagem);
+        }
+      }else if (operacao == 2) { // Alteração
+        // Cria um objeto aluno para receber os dados da do preenchimento 
+        // da tela
+        Produto p1 = new Produto();
+        // Cria um objeto AlunoDAO para uso dos métodos de acesso
+        // ao banco para os alunos
+        ProdutoDAO pd = new ProdutoDAO();
+        // Determina os valores dos atributos do objeto aluno, com os dados
+        // preenchidos na tela
+        // o id irá ser usado para determinar o registro a ser alterado
+        
+        p1.setId(id);
+        p1.setNome(tfNome.getText());
+        p1.setCodProduto(tfCodProduto.getText());
+        p1.setDescricao(tfDescricao.getText());
+        p1.setPreco(Float.parseFloat(tfPreco.getText()));
+        p1.setQtdEstoque(Integer.parseInt(tfEstoque.getText()));
+        p1.setIdEmpresa(Integer.parseInt(tdIdEmpresa.getText()));
+        p1.setEmpresa(tfEmpresa.getText());
+       
+        // Verifica se a operação de alteração obteve sucesso
+        if (pd.alterar(p1)) {
+          String mensagem = "Produto Alterado!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
       } else if (operacao == 3) { // Exclusão
         // Cria um objeto aluno para receber os dados da do preenchimento 
         // da tela
-        Cliente c1 = new Cliente();
+        Produto p1 = new Produto();
         // Cria um objeto AlunoDAO para uso dos métodos de acesso
         // ao banco para os alunos
-        ClienteDAO cd = new ClienteDAO();
+        ProdutoDAO pd = new ProdutoDAO();
         // Determina os valores dos atributos do objeto aluno, com os dados
         // preenchidos na tela
         // o id irá ser usado para determinar o registro a ser alterado
-        c1.setId(id);
-        c1.setNome(tfNome.getText());
-        c1.setTelefone(Integer.parseInt(tfDescricao.getText()));
+        p1.setId(id);
+        p1.setNome(tfNome.getText());
+        p1.setCodProduto(String.valueOf(p1));
+        p1.setPreco(Float.parseFloat(tfPreco.getText()));
+        p1.setQtdEstoque(Integer.parseInt(tfEstoque.getText()));
+        p1.setIdEmpresa(Integer.parseInt(tdIdEmpresa.getText()));
+        p1.setEmpresa(tfEmpresa.getText());
         // Verifica se a operação de exclusão obteve sucesso
-        if (cd.excluir(c1)) {
-          String mensagem = "Fornecedor Excluído!";
+        if (pd.excluir(p1)) {
+          String mensagem = "Produto Excluído!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
       }

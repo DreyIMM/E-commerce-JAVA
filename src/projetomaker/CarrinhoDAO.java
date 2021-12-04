@@ -19,11 +19,11 @@ public class CarrinhoDAO {
   // Método para realizar a busca na Tabela Alunos dos dados do registro
   // do aluno identificado pelo id
 
-  public Carrinho bucasCliente(int id) {
+  public Carrinho buscarCarrinho(int id) {
     // Cria um objeto de Conexão com o Banco de Dados
     AcessoBD acesso = new AcessoBD();
     // Cria um objeto Aluno para retornar os dados do registro
-    Cliente cliente = new Cliente();
+    Carrinho carrinho = new Carrinho();
     // Cria um ResultSet para armazenar o resultado da pesquisa
     ResultSet rs;
     // Tenta realizar a conexão com o banco de Dados para realizar a operação
@@ -31,7 +31,7 @@ public class CarrinhoDAO {
       // Tramento de exceções
       try {
         // Define a consulta na tabela Alunos através do id
-       String consulta = "select * from Cliente"
+       String consulta = "select * from Carrinho"
                 + String.valueOf(id).trim();
         // Cria um objeto para realizar a consulta
         PreparedStatement stm = acesso.con.prepareStatement(consulta);
@@ -41,17 +41,15 @@ public class CarrinhoDAO {
         // para o objeto Aluno
         if (rs.next()) {
           if (Integer.parseInt(rs.getString("id")) > 0) {
-            cliente.setId(Integer.parseInt(rs.getString("id")));
-            cliente.setNome(rs.getString("nome"));
-            cliente.setEmail(rs.getString("email"));
-            cliente.setTelefone(Integer.parseInt(rs.getString("telefone")));
+            carrinho.SetNomeProduto(rs.getString("nome"));
+            
                 
           }
         }
       } catch (Exception e) {
         // Informa caso a operação não tenha obtido sucesso
         e.printStackTrace();
-        String mensagem = "Cliente não Encontrado!";
+        String mensagem = "Produto não encontrado no carrinho";
         JOptionPane.showMessageDialog(null, mensagem);
         return null;
       }
@@ -59,7 +57,7 @@ public class CarrinhoDAO {
     // Desconecta com o Banco após realizar a operação
     acesso.desconectar();
     // Retorna um objeto fornecedor com os dados do registro da tabela
-    return cliente;
+    return carrinho;
   }
 
   // Método para realizar a inclusão de um no registro na Tabela Alunos
@@ -73,8 +71,8 @@ public class CarrinhoDAO {
       // Tramento de exceções
       try {
         // Define a consulta de inclusão na tabela Fornecedor    
-        String consulta = "INSERT into Carrinho (idCliente, idProduto, valor) "
-                + "VALUES('" +carrinho.GetIdCliente() + "','" + carrinho.getIdProduto() + "','"
+        String consulta = "INSERT into Carrinho (nomeProduto, idCliente ,idProduto, valor) "
+                + "VALUES('" +carrinho.getNomeProduto()+ "','"+carrinho.getIdCliente() + "','" + carrinho.getIdProduto() + "','"
                 + carrinho.getValor() + "')";                                                    
         // Cria um objeto para realizar a consulta
         Statement st = acesso.con.createStatement();
@@ -96,7 +94,7 @@ public class CarrinhoDAO {
     return true;
   }
 
-  public boolean excluir(Cliente cliente) {
+  public boolean excluir(Carrinho carrinho) {
     // cria o objeto para a conexão
     AcessoBD acesso = new AcessoBD();
     // Tenta realizar a conexão com o banco de Dados para realizar a operação
@@ -104,7 +102,7 @@ public class CarrinhoDAO {
       // Tramento de exceções
       try {
         // Define a consulta de exclusão na tabela Alunos 
-        String consulta = "DELETE from Cliente WHERE id="+cliente.getId();
+        String consulta = "DELETE from Carrinho WHERE idCliente="+ carrinho.getIdCliente();
         // Cria um objeto para realizar a consulta
         Statement st = acesso.con.createStatement();
         // Executa a consulta
@@ -112,7 +110,7 @@ public class CarrinhoDAO {
       } catch (Exception e) {
         // Informa caso a operação não tenha obtido sucesso
         e.printStackTrace();
-        String mensagem = "Cliente não Excluído!";
+        String mensagem = "Compra não Finalizada!";
         JOptionPane.showMessageDialog(null, mensagem);
         return false;
       }

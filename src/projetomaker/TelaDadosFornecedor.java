@@ -24,7 +24,6 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
     this.id = id;
     // Limpa os conteúdos das caixas de texto
     tfNome.setText("");
-    tfEmail.setText("");
     tfTelefone.setText("");
     tfRua.setText("");
     tfNumero.setText("");
@@ -53,7 +52,16 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
       f1 = fd.buscarFornecedor(id);
       // Preenche as caixas de texto com os dados do aluno
       tfNome.setText(f1.getNome());
-      tfTelefone.setText(f1.getNomeEmpresa());
+      tfTelefone.setText(String.valueOf(f1.getTelefone()));
+      tfNomeEmpresa.setText(f1.getNomeEmpresa());
+      tfResponsavel.setText(f1.getResponsavel());
+      tfRamo.setText(f1.getRamo());
+      
+      tfRua.setText(f1.Endereco.getRua());
+      tfNumero.setText(String.valueOf(f1.Endereco.getNumero()));
+      tfBairro.setText(f1.Endereco.getBairro());
+      tfCidade.setText(f1.Endereco.getCidade());
+      tfTipoDoEndereco.setText(f1.Endereco.getTipoDoEndereco());
     }
     if (operacao == 3) {
       // Determina o título da janela para uma exclusão
@@ -67,13 +75,18 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
       // através do id
       f1 = fd.buscarFornecedor(id);
       // Preenche as caixas de texto com os dados do aluno
-        tfNome.setText(f1.getNome());
-        tfNomeEmpresa.setText(f1.getNomeEmpresa());
-        tfResponsavel.setText(f1.getResponsavel());
-//      tfTelefone.setText(Integer.parseInt(f1.getTelefone().toString));
-        
-        tfResponsavel.setText(f1.getResponsavel());
-        tfRamo.setText(f1.getRamo());
+      tfNome.setText(f1.getNome());
+     
+      tfTelefone.setText(String.valueOf(f1.getTelefone()));
+      tfNomeEmpresa.setText(f1.getNomeEmpresa());
+      tfResponsavel.setText(f1.getResponsavel());
+      tfRamo.setText(f1.getRamo());
+      
+      tfRua.setText(f1.Endereco.getRua());
+      tfNumero.setText(String.valueOf(f1.Endereco.getNumero()));
+      tfBairro.setText(f1.Endereco.getBairro());
+      tfCidade.setText(f1.Endereco.getCidade());
+      tfTipoDoEndereco.setText(f1.Endereco.getTipoDoEndereco());
      
     }
   }
@@ -90,10 +103,8 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
         btConfirmar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         lb2 = new javax.swing.JLabel();
-        lb3 = new javax.swing.JLabel();
         lb4 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfEmail = new javax.swing.JTextField();
         tfTelefone = new javax.swing.JTextField();
         lb1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -134,8 +145,6 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
 
         lb2.setText("Nome");
 
-        lb3.setText("Email");
-
         lb4.setText("Telefone");
 
         tfNome.setText("jTextField1");
@@ -144,8 +153,6 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                 tfNomeActionPerformed(evt);
             }
         });
-
-        tfEmail.setText("jTextField2");
 
         tfTelefone.setText("jTextField3");
 
@@ -216,16 +223,12 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfTipoDoEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
@@ -239,14 +242,12 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(lb4)
-                            .addComponent(lb3)
                             .addComponent(lb2)
                             .addComponent(jLabel10))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNomeEmpresa)
                             .addComponent(tfTelefone)
-                            .addComponent(tfEmail)
                             .addComponent(tfNome)
                             .addComponent(tfResponsavel)
                             .addComponent(tfRamo)))
@@ -274,10 +275,6 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb3)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb4)
                     .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -292,7 +289,7 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(tfRamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,8 +308,8 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTipoDoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -336,10 +333,9 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
         // preenchidos na tela
         // o id é gerado automaticamente pelo Access
         f1.setNome(tfNome.getText());
-        f1.setEmail(tfEmail.getText());
-        f1.setTelefone(Integer.parseInt(tfTelefone.getText()));
         f1.setNomeEmpresa(tfNomeEmpresa.getText());
         f1.setResponsavel(tfResponsavel.getText());
+        f1.setTelefone(Integer.parseInt(tfTelefone.getText()));
         f1.setRamo(tfRamo.getText());
         
         f1.Endereco.setRua(tfRua.getText());
@@ -353,7 +349,34 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
           String mensagem = "Fornecedor Inserido!";
           JOptionPane.showMessageDialog(null, mensagem);
         }
-      } else if (operacao == 3) { // Exclusão
+      } else if (operacao == 2) { // Alteração
+        // Cria um objeto aluno para receber os dados da do preenchimento 
+        // da tela
+        Fornecedor f1 = new Fornecedor();
+        // Cria um objeto AlunoDAO para uso dos métodos de acesso
+        // ao banco para os alunos
+        FornecedorDAO fd = new FornecedorDAO();
+        // Determina os valores dos atributos do objeto aluno, com os dados
+        // preenchidos na tela
+        // o id irá ser usado para determinar o registro a ser alterado
+       
+        f1.setId(id);
+        f1.setNome(tfNome.getText());
+        f1.setTelefone(Integer.parseInt(tfTelefone.getText().toString()));
+        f1.setResponsavel(tfResponsavel.getText());
+        f1.setRamo(tfRamo.getText());
+        f1.Endereco.setRua(tfRua.getText());
+        f1.Endereco.setNumero(Integer.parseInt(tfNumero.getText().toString()));
+        f1.Endereco.setBairro(tfBairro.getText());
+        f1.Endereco.setCidade(tfCidade.getText());
+        f1.Endereco.setTipoDoEndereco(tfTipoDoEndereco.getText());
+       
+        // Verifica se a operação de alteração obteve sucesso
+        if (fd.alterar(f1)) {
+          String mensagem = "Cliente Alterado!";
+          JOptionPane.showMessageDialog(null, mensagem);
+        }
+      }else if (operacao == 3) { // Exclusão
         // Cria um objeto aluno para receber os dados da do preenchimento 
         // da tela
         Fornecedor f1 = new Fornecedor();
@@ -520,11 +543,9 @@ public class TelaDadosFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lb1;
     private javax.swing.JLabel lb2;
-    private javax.swing.JLabel lb3;
     private javax.swing.JLabel lb4;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCidade;
-    private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNomeEmpresa;
     private javax.swing.JTextField tfNumero;

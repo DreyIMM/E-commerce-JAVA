@@ -175,7 +175,7 @@ public class TelaProduto extends javax.swing.JFrame {
             // Executa a janela de preenchimento de dados em modo alteração
             // 1o parâmetro = 2 - Alteração e 2o parâmetro = id do registro 
             // o trim() é necessário para eliminar os espaços na conversão
-            TelaDadosCliente tdados = new TelaDadosCliente(2, Integer.parseInt(id.trim()));
+            TelaDadosProduto tdados = new TelaDadosProduto(2, Integer.parseInt(id.trim()));
             tdados.setVisible(true);
             // Configura os comonentes que serão liberados ou restringidos
         } // Verificação de segurança
@@ -198,8 +198,8 @@ public class TelaProduto extends javax.swing.JFrame {
             // Executa a janela de preenchimento de dados em modo exclusão
             // 1o parâmetro = 3 - Exclusão e 2o parâmetro = id do registro 
             // o trim() é necessário para eliminar os espaços na conversão
-            TelaDadosCliente tdados = new TelaDadosCliente(3, Integer.parseInt(id.trim()));
-            tdados.setVisible(true);
+            TelaDadosProduto tproduto = new TelaDadosProduto(3, Integer.parseInt(id.trim()));
+            tproduto.setVisible(true);
             // Configura os comonentes que serão liberados ou restringidos
         } // Verificação de segurança
         else {

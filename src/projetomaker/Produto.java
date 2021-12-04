@@ -10,6 +10,7 @@ package projetomaker;
  * @author andre
  */
 public class Produto {
+    private int id;
     private String nome;
     private String codProduto;
     private String descricao;
@@ -88,7 +89,14 @@ public class Produto {
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
-        
+           
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     
     

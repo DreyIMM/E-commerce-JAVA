@@ -13,10 +13,9 @@ import javax.swing.JOptionPane;
 // Classe de controle da manipução das operações no 
 // Banco de dados da classe Aluno
 public class ProdutoDAO {
+    
   // Método para realizar a busca na Tabela Alunos dos dados do registro
   // do aluno identificado pelo id
-
-  //
   public Produto buscarProdutoUnico(int id) {
     // Cria um objeto de Conexão com o Banco de Dados
     AcessoBD acesso = new AcessoBD();
@@ -39,14 +38,18 @@ public class ProdutoDAO {
         if (rs.next()) {
           if (Integer.parseInt(rs.getString("id")) > 0) {
             produto.setNome(rs.getString("nome"));
+            produto.setCodProduto(rs.getString("codProduto"));
+            produto.setDescricao(rs.getString("descricao"));
+            produto.setPreco(Integer.parseInt(rs.getString("preco")));
+            produto.setQtdEstoque(Integer.parseInt(rs.getString("qtdEstoque")));
+            produto.setIdEmpresa(Integer.parseInt(rs.getString("idEmpresa")));
             produto.setEmpresa(rs.getString("empresa"));
-            produto.setPreco(Float.parseFloat(rs.getString("preco")));
           }
         }
       } catch (Exception e) {
         // Informa caso a operação não tenha obtido sucesso
         e.printStackTrace();
-        String mensagem = "Fornecedor não Encontrado!";
+        String mensagem = "Produto não Encontrado!";
         JOptionPane.showMessageDialog(null, mensagem);
         return null;
       }
@@ -89,7 +92,7 @@ public class ProdutoDAO {
     return true;
   }
 
-  public boolean excluir(Fornecedor fornecedor) {
+  public boolean excluir(Produto produto) {
     // cria o objeto para a conexão
     AcessoBD acesso = new AcessoBD();
     // Tenta realizar a conexão com o banco de Dados para realizar a operação
@@ -97,7 +100,7 @@ public class ProdutoDAO {
       // Tramento de exceções
       try {
         // Define a consulta de exclusão na tabela Alunos 
-        String consulta = "DELETE from Fornecedor WHERE id="+fornecedor.getId();
+        String consulta = "DELETE from Produto WHERE id="+produto.getId();
         // Cria um objeto para realizar a consulta
         Statement st = acesso.con.createStatement();
         // Executa a consulta
@@ -105,7 +108,7 @@ public class ProdutoDAO {
       } catch (Exception e) {
         // Informa caso a operação não tenha obtido sucesso
         e.printStackTrace();
-        String mensagem = "Fornecedor não Excluído!";
+        String mensagem = "Produto não Excluído!";
         JOptionPane.showMessageDialog(null, mensagem);
         return false;
       }
@@ -115,52 +118,62 @@ public class ProdutoDAO {
     // Informa que a operação obteve sucesso
     return true;
   }
-
+  public boolean alterar(Produto produto) {
+    // cria o objeto para a conexão
+    AcessoBD acesso = new AcessoBD();
+    // Tenta realizar a conexão com o banco de Dados para realizar a operação
+    if (acesso.conectar()) {
+      // Tramento de exceções
+      try {
+        // Define a consulta de alteração na tabela Cliente 
+        String consulta = "UPDATE Produto SET id="
+                + produto.getId() + ",nome='" + produto.getNome()+ "', descricao='" + produto.getDescricao()+ "', preco='" + produto.getPreco()+ "', qtdEstoque='" + produto.getQtdEstoque()+ "' WHERE id=" + produto.getId();
+        // Cria um objeto para realizar a consulta
+        Statement st = acesso.con.createStatement();
+        // Executa a consulta
+        st.executeUpdate(consulta);
+      } catch (Exception e) {
+        // Informa caso a operação não tenha obtido sucesso
+        e.printStackTrace();
+        String mensagem = "Produto não Alterado!";
+        JOptionPane.showMessageDialog(null, mensagem);
+        return false;
+      }
+    }
+    
+    // Desconecta com o Banco após realizar a operação
+    acesso.desconectar();
+    // Informa que a operação obteve sucesso
+    return true;
+  }
   
   
-    // Método para realizar a busca na Tabela Alunos dos dados do registro
-    // do aluno identificado pelo id
-  
-  
-//  public int buscarProdutoUnico(int idProduto) {
-//    boolean resp=false;
-//    
-//    // Cria um objeto de Conexão com o Banco de Dados
-//    AcessoBD acesso = new AcessoBD();
-//    // Cria um objeto Aluno para retornar os dados do registro
-//    Fornecedor fornecedor = new Fornecedor();
-//    // Cria um ResultSet para armazenar o resultado da pesquisa
-//    ResultSet rs;
-//    // Tenta realizar a conexão com o banco de Dados para realizar a operação
-//    if (acesso.conectar()) {
-//      // Tramento de exceções
-//      try {
-//        // Define a consulta na tabela Alunos através do id
-//        String consulta = "select * from Fornecedor where matricula="
-//                + String.valueOf(mat).trim();
-//        // Cria um objeto para realizar a consulta
-//        PreparedStatement stm = acesso.con.prepareStatement(consulta);
-//        // Executa a consulta
-//        rs = stm.executeQuery();
-//        // Existindo resultado os valores dos campos são transferidos
-//        // para o objeto Aluno
-//        if (rs.next()) {
-//          resp = true;
-//        }
-//      } catch (Exception e) {
-//        // Informa caso a operação não tenha obtido sucesso
-//
-//        String mensagem = "Aluno não Encontrado!";
-//        JOptionPane.showMessageDialog(null, mensagem);
-//        resp = false;
-//      }
-//    }
-//    // Desconecta com o Banco após realizar a operação
-//    acesso.desconectar();
-//    // Retorna um objeto Aluno com os dados do registro da tabela
-//    return resp;
-//  }
-  
-  
-  
+  public boolean reduzir(Produto produto) {
+    // cria o objeto para a conexão
+    AcessoBD acesso = new AcessoBD();
+    // Tenta realizar a conexão com o banco de Dados para realizar a operação
+    if (acesso.conectar()) {
+      // Tramento de exceções
+      try {
+        // Define a consulta de alteração na tabela Cliente 
+                String consulta = "UPDATE Produto SET id="
+                + produto.getId() + ",qtdEstoque='" + produto.getQtdEstoque() + "' WHERE id=" + produto.getId();
+        // Cria um objeto para realizar a consulta
+        Statement st = acesso.con.createStatement();
+        // Executa a consulta
+        st.executeUpdate(consulta);
+      } catch (Exception e) {
+        // Informa caso a operação não tenha obtido sucesso
+        e.printStackTrace();
+        String mensagem = "Estoque não reduzido!";
+        JOptionPane.showMessageDialog(null, mensagem);
+        return false;
+      }
+    }
+    
+    // Desconecta com o Banco após realizar a operação
+    acesso.desconectar();
+    // Informa que a operação obteve sucesso
+    return true;
+  }
 }

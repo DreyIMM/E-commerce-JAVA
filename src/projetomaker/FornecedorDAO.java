@@ -43,10 +43,16 @@ public class FornecedorDAO {
           if (Integer.parseInt(rs.getString("id")) > 0) {
             fornecedor.setId(Integer.parseInt(rs.getString("id")));
             fornecedor.setNome(rs.getString("nome"));
-            fornecedor.setNomeEmpresa(rs.getString("empresa"));
             fornecedor.setResponsavel(rs.getString("responsavel"));
             fornecedor.setTelefone(Integer.parseInt(rs.getString("telefone")));
             fornecedor.setRamo(rs.getString("ramo"));
+            fornecedor.setNomeEmpresa(rs.getString("empresa"));
+            
+            fornecedor.Endereco.setRua(rs.getString("rua"));
+            fornecedor.Endereco.setNumero(Integer.parseInt(rs.getString("numero")));
+            fornecedor.Endereco.setBairro(rs.getString("bairro"));
+            fornecedor.Endereco.setCidade(rs.getString("cidade"));
+            fornecedor.Endereco.setTipoDoEndereco(rs.getString("tipoEndereco"));
           }
         }
       } catch (Exception e) {
@@ -179,48 +185,33 @@ public class FornecedorDAO {
     acesso.desconectar();
     // Informa que a operação obteve sucesso
     return true;
+  } 
+  
+  public boolean alterar(Fornecedor fornecedor) {
+    // cria o objeto para a conexão
+    AcessoBD acesso = new AcessoBD();
+    // Tenta realizar a conexão com o banco de Dados para realizar a operação
+    if (acesso.conectar()) {
+      // Tramento de exceções
+      try {
+        // Define a consulta de alteração na tabela Cliente 
+        String consulta = "UPDATE Fornecedor SET id="
+                + fornecedor.getId() + ",responsavel='" + fornecedor.getResponsavel()+ "', telefone='" + fornecedor.getTelefone() + "', ramo='" + fornecedor.getRamo()+ "', cidade='" +fornecedor.Endereco.getCidade()+ "' WHERE id=" + fornecedor.getId();
+        // Cria um objeto para realizar a consulta
+        Statement st = acesso.con.createStatement();
+        // Executa a consulta
+        st.executeUpdate(consulta);
+      } catch (Exception e) {
+        // Informa caso a operação não tenha obtido sucesso
+        e.printStackTrace();
+        String mensagem = "Fornecedor não Alterado!";
+        JOptionPane.showMessageDialog(null, mensagem);
+        return false;
+      }
+    }
+    // Desconecta com o Banco após realizar a operação
+    acesso.desconectar();
+    // Informa que a operação obteve sucesso
+    return true;
   }
-  
-  
-    // Método para realizar a busca na Tabela Alunos dos dados do registro
-  // do aluno identificado pelo id
-//
-//  public boolean buscarFornecedor(String mat) {
-//    boolean resp=false;
-//    mat = mat.trim();
-//    // Cria um objeto de Conexão com o Banco de Dados
-//    AcessoBD acesso = new AcessoBD();
-//    // Cria um objeto Aluno para retornar os dados do registro
-//    Fornecedor fornecedor = new Fornecedor();
-//    // Cria um ResultSet para armazenar o resultado da pesquisa
-//    ResultSet rs;
-//    // Tenta realizar a conexão com o banco de Dados para realizar a operação
-//    if (acesso.conectar()) {
-//      // Tramento de exceções
-//      try {
-//        // Define a consulta na tabela Alunos através do id
-//        String consulta = "select * from Fornecedor where matricula="
-//                + String.valueOf(mat).trim();
-//        // Cria um objeto para realizar a consulta
-//        PreparedStatement stm = acesso.con.prepareStatement(consulta);
-//        // Executa a consulta
-//        rs = stm.executeQuery();
-//        // Existindo resultado os valores dos campos são transferidos
-//        // para o objeto Aluno
-//        if (rs.next()) {
-//          resp = true;
-//        }
-//      } catch (Exception e) {
-//        // Informa caso a operação não tenha obtido sucesso
-//
-//        String mensagem = "Aluno não Encontrado!";
-//        JOptionPane.showMessageDialog(null, mensagem);
-//        resp = false;
-//      }
-//    }
-//    // Desconecta com o Banco após realizar a operação
-//    acesso.desconectar();
-//    // Retorna um objeto Aluno com os dados do registro da tabela
-//    return resp;
-//  }
 }

@@ -175,9 +175,7 @@ public class TelaCliente extends javax.swing.JFrame {
                 String mensagem = "Opção inválida!";
                 JOptionPane.showMessageDialog(null, mensagem);
             }
-            // Executa a janela de preenchimento de dados em modo alteração
-            // 1o parâmetro = 2 - Alteração e 2o parâmetro = id do registro 
-            // o trim() é necessário para eliminar os espaços na conversão
+            
             TelaDadosCliente tdados = new TelaDadosCliente(2, Integer.parseInt(id.trim()));
             tdados.setVisible(true);
             // Configura os comonentes que serão liberados ou restringidos

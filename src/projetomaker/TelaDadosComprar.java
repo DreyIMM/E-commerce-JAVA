@@ -12,10 +12,11 @@ import javax.swing.JOptionPane;
 public class TelaDadosComprar extends javax.swing.JFrame {
 
     // Atributos da clsses para ficarem disponíveis para todos os métodos
-    static int idComprador, idProduto;
-    static String  nomeComprador;
+    static int idComprador, idProduto, qtdEstoque;
+    static String  nomeComprador, nomeProduto;
     static Float valorProduto, valorFinal;
-    
+    ProdutoDAO pdUnico = new ProdutoDAO();
+    Produto pUnico = new Produto();
     // Construtor da janela alterado para receber o tipo de operação (1, 2 ou 3)
     // e o id do registro no banco, se id = 0 é uma inclusão
    
@@ -28,13 +29,13 @@ public class TelaDadosComprar extends javax.swing.JFrame {
     public TelaDadosComprar(int idPro) {
       initComponents();
       this.idProduto = idPro;
-      ProdutoDAO pdUnico = new ProdutoDAO();
-      Produto pUnico = new Produto();
       
       pUnico = pdUnico.buscarProdutoUnico(idProduto);
-      this.valorProduto = pUnico.getPreco();
       
-      // para essa opção é inserido o codigo do produto tfProduto.setText(String.valueOf(idProduto));
+      this.valorProduto = pUnico.getPreco();
+      this.qtdEstoque = pUnico.getQtdEstoque();
+      this.nomeProduto = pUnico.getNome();
+              
       tfIdCliente.setText(nomeComprador);
       tfProduto.setText(pUnico.getNome());
       tfEmpresa.setText(pUnico.getEmpresa());
@@ -185,25 +186,38 @@ public class TelaDadosComprar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Método do botão de Confirmação
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
-       
-        Carrinho c1 = new Carrinho();
-        // Cria um objeto AlunoDAO para uso dos métodos de acesso
-        // ao banco para os alunos
-        CarrinhoDAO cd = new CarrinhoDAO();
-        // Determina os valores dos atributos do objeto aluno, com os dados
-        // preenchidos na tela
-        // o id é gerado automaticamente pelo Access
-        c1.setIdProduto(idProduto);
-        valorFinal = (valorProduto * Float.parseFloat(tfQuantidade.getText()));
-        c1.setValor(valorFinal);
-        c1.setIdCliente(idComprador);
-        // Verifica se a operação de inserção obteve sucesso
-        if (cd.inserir(c1)) {
-          String mensagem = "Fornecedor Inserido!";
-          JOptionPane.showMessageDialog(null, mensagem);
+        int qtdEscolhida = Integer.parseInt(tfQuantidade.getText());
+        if(qtdEscolhida > this.qtdEstoque){
+            String mensagem = "Quantidade maior que o estoque !";
+            JOptionPane.showMessageDialog(null, mensagem);
+        }else{
+            Carrinho c1 = new Carrinho();
+            // Cria um objeto AlunoDAO para uso dos métodos de acesso
+            // ao banco para os alunos
+            CarrinhoDAO cd = new CarrinhoDAO();
+            // Determina os valores dos atributos do objeto aluno, com os dados
+            // preenchidos na tela
+            // o id é gerado automaticamente pelo Access
+            c1.setIdProduto(idProduto);
+            valorFinal = (valorProduto * Float.parseFloat(tfQuantidade.getText()));
+            
+            c1.setValor(valorFinal);
+            c1.setIdCliente(idComprador);
+            c1.SetNomeProduto(nomeProduto);
+            // Verifica se a operação de inserção obteve sucesso
+            if (cd.inserir(c1)) {
+              String mensagem = "Enviado para o carrinho !";
+              pUnico.setQtdEstoque(pUnico.getQtdEstoque() - qtdEscolhida);
+              pUnico.setId(idProduto);
+              pdUnico.reduzir(pUnico);
+              JOptionPane.showMessageDialog(null, mensagem);
+            }
+
+            this.dispose();
         }
-      
-      this.dispose();
+        
+        
+        
     }//GEN-LAST:event_btConfirmarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
